@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Starry Love Night</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      background: url('couple.avif') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .popup-card {
+      background: rgba(143, 36, 86, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 20px 5px rgba(255, 192, 203, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 2;
+    }
+
+    .popup-card h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      color: #ffdde1;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 5px rgba(255, 105, 180, 0.7);
+    }
+
+    .popup-card button {
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 12px;
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .popup-card button:hover {
+      background: #ff85c1;
+      box-shadow: 0 4px 20px rgba(255, 105, 180, 0.6);
+    }
+
+  .heart {
+  position: absolute;
+  font-size: 36px;
+  color: #ff85c1;
+  opacity: 0.6;
+  animation: floatHeart 6s ease-in infinite;
+  pointer-events: none;
+  z-index: 1;
+  text-shadow:
+    0 0 5px #ff85c1,
+    0 0 10px #ff85c1,
+    0 0 20px #ff85c1,
+    0 0 30px #ff85c1;
+   }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-400px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sparkle::before {
+      content: "✦";
+      color: #ffffffaa;
+      font-size: 14px;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .music-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(255, 192, 203, 0.8);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.3s;
+    }
+
+    .music-btn:hover {
+      background: rgba(255, 105, 180, 1);
+      transform: scale(1.1);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bg-music" loop>
+  <source src="remo_movie_love_bgm.mp3" type="audio/mp3">
+</audio>
+
+<button class="music-btn" id="musicToggle">►</button>
+
+<div class="overlay">
+  <div class="popup-card">
+    <h1>Let’s see 28 reasons why I love you ❤️</h1>
+    <button onclick="location.href='day3.2.html'">Let's Go!</button>
+  </div>
+</div>
+
+<script>
+  const overlay = document.querySelector(".overlay");
+
+  function createFloatingThing(type) {
+    const el = document.createElement("div");
+    el.className = type;
+    el.style.left = Math.random() * window.innerWidth + "px";
+    el.style.top = Math.random() * window.innerHeight + 100 + "px";
+    if (type === "heart") {
+      el.textContent = "♥";
+    }
+    overlay.appendChild(el);
+    setTimeout(() => overlay.removeChild(el), 10000);
+  }
+
+  setInterval(() => {
+    for (let i = 0; i < 2; i++) {
+      createFloatingThing("heart");
+    }
+  }, 700);
+
+  setInterval(() => createFloatingThing("sparkle"), 1500);
+
+  const music = document.getElementById("bg-music");
+  const toggleBtn = document.getElementById("musicToggle");
+
+  toggleBtn.addEventListener("click", () => {
+    if (music.paused) {
+      music.play();
+      toggleBtn.textContent = "❚❚"; // pause symbol
+    } else {
+      music.pause();
+      toggleBtn.textContent = "►"; // play symbol
+    }
+  });
+</script>
+
+</body>
+</html>
